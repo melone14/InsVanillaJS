@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+ReactDOM.render(
   <React.StrictMode>
     <h1>Initial</h1>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById('root')
 );

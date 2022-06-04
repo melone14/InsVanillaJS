@@ -21,6 +21,9 @@ const DisplayBreweries = () => {
 
   useEffect(() => {
     getBreweries();
+
+    console.log(breweries);
+    setBreweries([{ name: 'xyz' }]);
   }, []);
 
   return (

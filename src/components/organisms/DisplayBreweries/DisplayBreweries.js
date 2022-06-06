@@ -3,9 +3,18 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 import useBreweries from 'hooks/useBreweries';
 
-const Wrapper = styled.table`
+const Wrapper = styled.div`
+  width: 100%;
+  max-width: 1100px;
+  margin: 20px auto;
+  border: 1px solid red;
+`;
+
+const TableWrapper = styled.table`
   border: 1px solid red;
   padding: 10px;
+  margin: 0 auto;
+  border-spacing: 30px;
 `;
 
 const TableHead = styled.thead`
@@ -13,12 +22,25 @@ const TableHead = styled.thead`
 
   tr {
     position: sticky;
-    top: 10px;
+    top: 0;
+    background: white;
+
+    th {
+      padding: 10px 0;
+      text-align: left;
+    }
   }
 `;
 
 const TableBody = styled.tbody`
   border: 1px solid blue;
+`;
+
+const PageTitle = styled.h1`
+  font-size: 22px;
+  font-weight: 500;
+  text-align: center;
+  margin: 30px auto;
 `;
 
 const DisplayBreweries = () => {
@@ -29,26 +51,31 @@ const DisplayBreweries = () => {
   }, [breweries]);
 
   return (
-    <Wrapper>
-      <TableHead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Phone</th>
-        </tr>
-      </TableHead>
-      <TableBody>
-        {breweries.length > 1 ? (
-          breweries.map((brewery) => (
-            <Brewery key={brewery.id} brewery={brewery} />
-          ))
-        ) : (
-          <tr>
-            <td>siema</td>
-          </tr>
-        )}
-      </TableBody>
-    </Wrapper>
+    <>
+      <PageTitle>Breweries</PageTitle>
+      <Wrapper>
+        <TableWrapper>
+          <TableHead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Phone</th>
+            </tr>
+          </TableHead>
+          <TableBody>
+            {breweries.length > 1 ? (
+              breweries.map((brewery) => (
+                <Brewery key={brewery.id} brewery={brewery} />
+              ))
+            ) : (
+              <tr>
+                <td>siema</td>
+              </tr>
+            )}
+          </TableBody>
+        </TableWrapper>
+      </Wrapper>
+    </>
   );
 };
 

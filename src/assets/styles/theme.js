@@ -6,11 +6,11 @@ export const theme = {
     red: '#ce3535',
     blue: '#0085cc',
     darkGray: '#777777',
-    lightGray: '#f2f2f2',
+    lightGray: '#ccc8c8',
     black: '#484848',
     success: '#8FCB81',
     error: '#CB8581',
-    orange: '#E85D00',
+    lightBlue: '#0099e6',
     warning: '#E1D888',
   },
   fontSize: {

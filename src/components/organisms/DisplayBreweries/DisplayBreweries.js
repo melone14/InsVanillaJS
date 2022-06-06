@@ -1,7 +1,7 @@
 import Brewery from 'components/molecules/Brewery/Brewery';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { getBreweries } from 'helpers';
+import { useEffect } from 'react';
+import useBreweries from 'hooks/useBreweries';
 
 const Wrapper = styled.table`
   border: 1px solid red;
@@ -10,6 +10,11 @@ const Wrapper = styled.table`
 
 const TableHead = styled.thead`
   border: 1px solid green;
+
+  tr {
+    position: sticky;
+    top: 10px;
+  }
 `;
 
 const TableBody = styled.tbody`
@@ -17,14 +22,11 @@ const TableBody = styled.tbody`
 `;
 
 const DisplayBreweries = () => {
-  const [breweries, setBreweries] = useState([]);
+  const [breweries, setBreweries] = useBreweries();
 
   useEffect(() => {
-    getBreweries();
-
     console.log(breweries);
-    setBreweries([{ name: 'xyz' }]);
-  }, []);
+  }, [breweries]);
 
   return (
     <Wrapper>
@@ -32,12 +34,19 @@ const DisplayBreweries = () => {
         <tr>
           <th>Name</th>
           <th>Type</th>
+          <th>Phone</th>
         </tr>
       </TableHead>
       <TableBody>
-        <Brewery />
-        <Brewery />
-        <Brewery />
+        {breweries.length > 1 ? (
+          breweries.map((brewery) => (
+            <Brewery key={brewery.id} brewery={brewery} />
+          ))
+        ) : (
+          <tr>
+            <td>siema</td>
+          </tr>
+        )}
       </TableBody>
     </Wrapper>
   );

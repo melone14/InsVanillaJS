@@ -4,11 +4,12 @@ const Wrapper = styled.tr`
   padding: 10px;
 `;
 
-const Brewery = () => {
+const Brewery = ({ brewery: { name, brewery_type, phone } }) => {
   return (
     <Wrapper>
-      <td>XYZ</td>
-      <td>micro</td>
+      <td>{name}</td>
+      <td>{brewery_type}</td>
+      <td>{phone ? phone : 'unknown'}</td>
     </Wrapper>
   );
 };

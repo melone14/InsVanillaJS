@@ -8,6 +8,7 @@ const Wrapper = styled.tr`
 const Brewery = ({ brewery: { name, brewery_type, phone } }) => {
   return (
     <Wrapper>
+      <td>1</td>
       <td>{name}</td>
       <td>{brewery_type}</td>
       <td>{phone ? phone : 'unknown'}</td>

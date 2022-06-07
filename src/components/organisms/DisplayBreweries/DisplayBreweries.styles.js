@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   .pagination {
     width: 90%;
     max-width: 1000px;
-    margin: 15px auto;
+    margin: 40px auto;
     list-style: none;
     display: flex;
     justify-content: center;
@@ -43,6 +43,13 @@ export const Wrapper = styled.div`
         background: ${({ theme }) => theme.colors.lightBlue};
         color: white;
       }
+
+      &.disabled {
+        background: ${({ theme }) => theme.colors.smokedWhite};
+        border: 1px solid ${({ theme }) => theme.colors.lightGray};
+        color: ${({ theme }) => theme.colors.lightGray};
+        cursor: not-allowed;
+      }
     }
   }
 `;
@@ -52,7 +59,6 @@ export const TableWrapper = styled.table`
   padding: 10px;
   margin: 0 auto;
   border-spacing: 2px;
-  /* border-collapse: collapse; */
 `;
 
 export const TableHead = styled.thead`
@@ -90,8 +96,17 @@ export const TableBody = styled.tbody`
 `;
 
 export const PageTitle = styled.h1`
-  font-size: 22px;
+  font-size: 25px;
   font-weight: 500;
   text-align: center;
   margin: 30px auto;
+`;
+
+export const FeaturesWrapper = styled.div`
+  width: 90%;
+  max-width: 1100px;
+  margin: 50px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

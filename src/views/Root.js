@@ -1,15 +1,15 @@
 import DisplayBreweries from 'components/organisms/DisplayBreweries/DisplayBreweries';
-import { GlobalStyle } from 'assets/styles/GlobalStyle';
-import { ThemeProvider } from 'styled-components';
-import { theme } from 'assets/styles/theme';
+import useModal from 'hooks/useModal';
 
-const Root = () => (
-  <>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
+const Root = () => {
+  const { Modal, isOpen, handleOpenModal, handleCloseModal } = useModal();
+
+  return (
+    <>
+      {isOpen ? <Modal handleClose={handleCloseModal} /> : null}
       <DisplayBreweries itemsPerPage={10} />
-    </ThemeProvider>
-  </>
-);
+    </>
+  );
+};
 
 export default Root;

@@ -1,24 +1,33 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const useBreweries = (url) => {
+const useBreweries = () => {
   const [breweries, setBreweries] = useState([]);
+  const [url, setUrl] = useState(
+    'https://api.openbrewerydb.org/breweries?per_page=50&page=1'
+  );
+
+  const fakeErrorToggle = () => {
+    if (url === 'https://api.openbrewerydb.org/breweries?per_page=50&page=1') {
+      setUrl('fakeurlhehe');
+    } else {
+      setUrl('https://api.openbrewerydb.org/breweries?per_page=50&page=1');
+    }
+  };
 
   useEffect(() => {
     const getBreweries = async () => {
       try {
-        const response = await axios.get(
-          'https://api.openbrewerydb.org/breweries?per_page=50&page=1'
-        );
+        const response = await axios.get(url);
 
-        response.data.forEach((brewery, index) => {
-          breweries[index] = { ...brewery, index: index + 1 };
-          console.log('hi');
-        });
-        console.log('hi2');
+        const indexedData = response.data.map((brewery, index) => ({
+          ...brewery,
+          index: index + 1,
+        }));
 
-        setBreweries(response.data);
+        setBreweries(indexedData);
       } catch (error) {
+        setBreweries([]);
         console.error(error);
       }
     };
@@ -26,7 +35,7 @@ const useBreweries = (url) => {
     getBreweries();
   }, [url]);
 
-  return [breweries, setBreweries];
+  return [breweries, fakeErrorToggle];
 };
 
 export default useBreweries;

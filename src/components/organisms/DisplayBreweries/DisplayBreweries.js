@@ -1,17 +1,21 @@
-import Brewery from 'components/molecules/Brewery/Brewery';
 import { useEffect, useState } from 'react';
-import useBreweries from 'hooks/useBreweries';
 import ReactPaginate from 'react-paginate';
+import Brewery from 'components/molecules/Brewery/Brewery';
 import {
   Wrapper,
   TableWrapper,
   TableHead,
   TableBody,
+  FeaturesWrapper,
 } from './DisplayBreweries.styles';
 import PageTitle from 'components/atoms/PageTitle/PageTitle';
+import LoadingSpinner from 'components/atoms/LoadingSpinner/LoadingSpinner';
+import Select from 'components/molecules/Select/Select';
+import useBreweries from 'hooks/useBreweries';
+import ErrorButton from 'components/atoms/ErrorButton/ErrorButton';
 
 function DisplayBreweries({ itemsPerPage }) {
-  const [breweries] = useBreweries();
+  const [breweries, fakeErrorToggle] = useBreweries();
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
@@ -19,32 +23,26 @@ function DisplayBreweries({ itemsPerPage }) {
 
   useEffect(() => {
     const endOffset = itemOffset + viewItemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     setCurrentItems(breweries.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(breweries.length / itemsPerPage));
+    setPageCount(Math.ceil(breweries.length / viewItemsPerPage));
   }, [itemOffset, breweries, viewItemsPerPage, itemsPerPage]);
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * viewItemsPerPage) % breweries.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
     setItemOffset(newOffset);
   };
 
   const handleSelectChange = (e) => {
-    console.log(typeof parseInt(e.target.value));
     setViewItemsPerPage(parseInt(e.target.value));
   };
 
   return (
     <Wrapper>
       <PageTitle>Breweries</PageTitle>
-      <select onChange={handleSelectChange} defaultValue="10">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="25">25</option>
-      </select>
+      <FeaturesWrapper>
+        <ErrorButton clickHandler={fakeErrorToggle} />
+        <Select changeHandler={handleSelectChange} />
+      </FeaturesWrapper>
       <TableWrapper>
         <TableHead>
           <tr>
@@ -61,7 +59,18 @@ function DisplayBreweries({ itemsPerPage }) {
             ))
           ) : (
             <tr>
-              <td>siema</td>
+              <td>
+                <LoadingSpinner />
+              </td>
+              <td>
+                <LoadingSpinner />
+              </td>
+              <td>
+                <LoadingSpinner />
+              </td>
+              <td>
+                <LoadingSpinner />
+              </td>
             </tr>
           )}
         </TableBody>
